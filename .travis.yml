@@ -1,9 +1,10 @@
 language: csharp
 script:
-  - xbuild /p:Configuration=Release BloomFilter/BloomFilter.sln
+  - xbuild /p:Configuration=Debug BloomFilter/BloomFilter.sln
 before_install:
   - sudo apt-get install nunit-console
 before_script:
   - nuget restore BloomFilter/BloomFilter.sln
 after_script:
-  - nunit-console BloomFilter/BloomFilter.UnitTests/bin/Release/BloomFilter.UnitTests.dll
+  - nunit-console BloomFilter/BloomFilter.UnitTests/bin/Debug/BloomFilter.UnitTests.dll
+  
