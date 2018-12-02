@@ -6,7 +6,7 @@ namespace BloomFilter.UnitTests
     public class MyBloomFilterTests
     {
         [Fact]
-        public void ComputeSizeOfBitArray_CorrectParameters_ReturnsCorrectResult()
+        public void ComputeSizeOfBitArray_CorrectParameters_ReturnCorrectResult()
         {
             int numberOfElements = 1000;
             double falsePositiveProb = 0.01;
@@ -18,7 +18,7 @@ namespace BloomFilter.UnitTests
         }
 
         [Fact]
-        public void ComputeSizeOfBitArray_ZeroElements_ReturnZero()
+        public void ComputeSizeOfBitArray_ZeroNumberOfElements_ReturnZero()
         {
             int numberOfElements = 0;
             double falsePositiveProb = 0.1;
@@ -30,7 +30,19 @@ namespace BloomFilter.UnitTests
         }
 
         [Fact]
-        public void ComputeSizeOfBitArray_ZeroFalsePositiveProb_ThrowsException()
+        public void ComputeSizeOfBitArray_NegativeNumberOfElements_ThrowException()
+        {
+            int numberOfElements = -1;
+            double falsePositiveProb = 0.1;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            Action act = () => filter.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
+
+            Assert.Throws<ArgumentOutOfRangeException>(act);
+        }
+
+        [Fact]
+        public void ComputeSizeOfBitArray_ZeroFalsePositiveProb_ThrowException()
         {
             int numberOfElements = 1000;
             double falsePositiveProb = 0.0;
@@ -42,7 +54,7 @@ namespace BloomFilter.UnitTests
         }
 
         [Fact]
-        public void ComputeSizeOfBitArray_NegativeFalsePositiveProb_ThrowsException()
+        public void ComputeSizeOfBitArray_NegativeFalsePositiveProb_ThrowException()
         {
             int numberOfElements = 1000;
             double falsePositiveProb = -0.1;
@@ -54,7 +66,7 @@ namespace BloomFilter.UnitTests
         }
 
         [Fact]
-        public void ComputeSizeOfBitArray_GreaterThanOneFalsePositiveProb_ThrowsException()
+        public void ComputeSizeOfBitArray_GreaterThanOneFalsePositiveProb_ThrowException()
         {
             int numberOfElements = 1000;
             double falsePositiveProb = 1.1;
@@ -66,7 +78,7 @@ namespace BloomFilter.UnitTests
         }
 
         [Fact]
-        public void ComputeNumberOfHashFunctions_CorrectParameters_ReturnsCorrectResult()
+        public void ComputeNumberOfHashFunctions_CorrectParameters_ReturnCorrectResult()
         {
             int numberOfElements = 1000;
             int sizeOfBitArray = 9586;
@@ -78,7 +90,7 @@ namespace BloomFilter.UnitTests
         }
 
         [Fact]
-        public void ComputeNumberOfHashFunctions_ZeroSizeOfBitArray_ReturnsZero()
+        public void ComputeNumberOfHashFunctions_ZeroSizeOfBitArray_ReturnZero()
         {
             int numberOfElements = 1000;
             int sizeOfBitArray = 0;
