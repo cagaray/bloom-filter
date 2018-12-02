@@ -64,5 +64,65 @@ namespace BloomFilter.UnitTests
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
+
+        [Fact]
+        public void ComputeNumberOfHashFunctions_CorrectParameters_ReturnsCorrectResult()
+        {
+            int numberOfElements = 1000;
+            int sizeOfBitArray = 9586;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            int numberOfHashFunctions = filter.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
+
+            Assert.Equal(7, numberOfHashFunctions);
+        }
+
+        [Fact]
+        public void ComputeNumberOfHashFunctions_ZeroSizeOfBitArray_ReturnsZero()
+        {
+            int numberOfElements = 1000;
+            int sizeOfBitArray = 0;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            int numberOfHashFunctions = filter.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
+
+            Assert.Equal(0, numberOfHashFunctions);
+        }
+
+        [Fact]
+        public void ComputeNumberOfHashFunctions_NegativeSizeOfBitArray_ThrowException()
+        {
+            int numberOfElements = 1000;
+            int sizeOfBitArray = -1;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            Action act = () => filter.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
+
+            Assert.Throws<ArgumentOutOfRangeException>(act);
+        }
+
+        [Fact]
+        public void ComputeNumberOfHashFunctions_ZeroNumberOfElements_ThrowException()
+        {
+            int numberOfElements = 0;
+            int sizeOfBitArray = 9586;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            Action act = () => filter.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
+
+            Assert.Throws<ArgumentOutOfRangeException>(act);
+        }
+
+        [Fact]
+        public void ComputeNumberOfHashFunctions_NegativeNumberOfElements_ThrowException()
+        {
+            int numberOfElements = -1;
+            int sizeOfBitArray = 9586;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            Action act = () => filter.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
+
+            Assert.Throws<ArgumentOutOfRangeException>(act);
+        }
     }
 }
