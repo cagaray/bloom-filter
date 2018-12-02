@@ -136,5 +136,96 @@ namespace BloomFilter.UnitTests
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
+
+        [Fact]
+        public void ComputeFalsePositiveProb_CorrectParameters_ReturnCorrectResult()
+        {
+            int numberOfElements = 1000;
+            int sizeOfBitArray = 9586;
+            int numberOfHashFunctions = 7;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            double falsePositiveProb = filter.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+
+            Assert.Equal(0.01, falsePositiveProb, 2);
+        }
+
+        [Fact]
+        public void ComputeFalsePositiveProb_ZeroNumberOfHashFunctions_ThrowException()
+        {
+            int numberOfElements = 1000;
+            int sizeOfBitArray = 9586;
+            int numberOfHashFunctions = 0;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            Action act = () => filter.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+
+            Assert.Throws<ArgumentOutOfRangeException>(act);
+        }
+
+        [Fact]
+        public void ComputeFalsePositiveProb_NegativeNumberOfHashFunctions_ThrowException()
+        {
+            int numberOfElements = 1000;
+            int sizeOfBitArray = 9586;
+            int numberOfHashFunctions = -1;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            Action act = () => filter.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+
+            Assert.Throws<ArgumentOutOfRangeException>(act);
+        }
+
+        [Fact]
+        public void ComputeFalsePositiveProb_ZeroNumberOfElements_ThrowException()
+        {
+            int numberOfElements = 0;
+            int sizeOfBitArray = 9586;
+            int numberOfHashFunctions = 7;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            Action act = () => filter.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+
+            Assert.Throws<ArgumentOutOfRangeException>(act);
+        }
+
+        [Fact]
+        public void ComputeFalsePositiveProb_NegativeNumberOfElements_ThrowException()
+        {
+            int numberOfElements = -1;
+            int sizeOfBitArray = 9586;
+            int numberOfHashFunctions = 7;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            Action act = () => filter.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+
+            Assert.Throws<ArgumentOutOfRangeException>(act);
+        }
+
+        [Fact]
+        public void ComputeFalsePositiveProb_ZeroSizeOfBitArray_ThrowException()
+        {
+            int numberOfElements = 1000;
+            int sizeOfBitArray = 0;
+            int numberOfHashFunctions = 7;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            Action act = () => filter.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+
+            Assert.Throws<ArgumentOutOfRangeException>(act);
+        }
+
+        [Fact]
+        public void ComputeFalsePositiveProb_NegativeSizeOfBitArray_ThrowException()
+        {
+            int numberOfElements = 1000;
+            int sizeOfBitArray = -1;
+            int numberOfHashFunctions = 7;
+            MyBloomFilter filter = new MyBloomFilter();
+
+            Action act = () => filter.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+
+            Assert.Throws<ArgumentOutOfRangeException>(act);
+        }
     }
 }
