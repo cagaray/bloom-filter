@@ -1,9 +1,11 @@
+dist: trusty
+sudo: required
 language: csharp
 mono: none
 dotnet: 2.1.302
+solution: BloomFilter.sln
 script:
+  - cd BloomFilter
   - dotnet restore
-  - dotnet build ./BloomFilter/
-  - dotnet build ./BloomFilter/BloomFilter/
-  - dotnet test ./BloomFilter/BloomFilter.UnitTests/
-  
+  - dotnet build -c Release
+  - dotnet test ./BloomFilter.UnitTests/
