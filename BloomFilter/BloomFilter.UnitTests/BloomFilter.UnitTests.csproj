@@ -16,4 +16,10 @@
   <ItemGroup>
     <ProjectReference Include="..\BloomFilter\BloomFilter.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utilities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="JenkinsHashFunctionTests.cs" />
+  </ItemGroup>
 </Project>
