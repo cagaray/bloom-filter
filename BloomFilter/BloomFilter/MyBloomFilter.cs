@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using BloomFilter.Utilities;
 
 namespace BloomFilter
@@ -12,6 +12,15 @@ namespace BloomFilter
         public readonly int NumberOfHashFunctions;
         public readonly IHashFunc<T> FirstHashFunction;
         public readonly IHashFunc<T> SecondHashFunction;
+        private BitArray _bitArray;
+
+        public int NumberOfTrueBits
+        {
+            get
+            {
+                return GetNumberOfTrueBits();
+            }
+        }
 
         public MyBloomFilter(int numberOfElements, double falsePositiveProb) : this(numberOfElements, falsePositiveProb, null, null)
         {
@@ -29,6 +38,7 @@ namespace BloomFilter
             this.NumberOfHashFunctions = ComputeNumberOfHashFunctions(this.NumberOfElements, this.SizeOfBitArray);
             this.FirstHashFunction = (firstHashFunction != null) ? firstHashFunction : new DotNetHashFunction<T>();
             this.SecondHashFunction = (secondHashFunction != null) ? secondHashFunction : new JenkinsHashFunction<T>();
+            this._bitArray = new BitArray(this.SizeOfBitArray);
         }
 
         public static int ComputeSizeOfBitArray(int numberOfElements, double falsePositiveProb)
@@ -50,6 +60,37 @@ namespace BloomFilter
             if (numberOfElements <= 0 || sizeOfBitArray <= 0 || numberOfHashFunctions <= 0)
                 throw new ArgumentOutOfRangeException();
             return Math.Pow(1 - Math.Pow(1 - 1.0 / sizeOfBitArray, numberOfHashFunctions * numberOfElements), numberOfHashFunctions);
+        }
+
+        public int ComputeHash(T element, int spacing)
+        {
+            return Math.Abs((FirstHashFunction.ComputeHash(element) + spacing * SecondHashFunction.ComputeHash(element)) % SizeOfBitArray);
+        }
+
+        private int GetNumberOfTrueBits()
+        {
+            int numberOfTrueBits = 0;
+            for (int i = 0; i < _bitArray.Count; i++)
+            {
+                if (_bitArray[i] == true) numberOfTrueBits++;
+            }
+            return numberOfTrueBits;
+        }
+
+        public void AddItem(T item)
+        {
+            for (int i = 0; i < NumberOfHashFunctions; i++)
+                _bitArray[ComputeHash(item, i)] = true;
+        }
+
+        public bool CheckItem(T item)
+        {
+            for (int i = 0; i < NumberOfHashFunctions; i++)
+            {
+                if (_bitArray[ComputeHash(item, i)] != true)
+                    return false;
+            }
+            return true;
         }
     }
 }

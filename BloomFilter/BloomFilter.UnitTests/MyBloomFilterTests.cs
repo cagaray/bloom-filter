@@ -319,5 +319,73 @@ namespace BloomFilter.UnitTests
             Assert.IsType<DotNetHashFunction<string>>(filter.FirstHashFunction);
             Assert.IsType<JenkinsHashFunction<string>>(filter.SecondHashFunction);
         }
+
+        [Fact]
+        public void ComputeHash_OfString_ReturnIntBetweenZeroAndSizeOfBitArrayMinusOne()
+        {
+            string word = "khaskjhsakjahsdhganbsjasjklakjsljkjahskhskdjhkdnbn";
+            int numberOfElements = 1000;
+            double falsePositiveProb = 0.01;
+            int spacing = 0;
+            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+
+            int hashValue = filter.ComputeHash(word, spacing);
+
+            Assert.InRange<int>(hashValue, 0, filter.SizeOfBitArray - 1);
+        }
+
+        [Fact]
+        public void ComputeHash_SameString_ReturnSameValue()
+        {
+            string word1 = "foo";
+            string word2 = "foo";
+            int numberOfElememts = 1000;
+            double falsePositivieProb = 0.01;
+            int spacing = 1;
+            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElememts, falsePositivieProb);
+
+            int hashValue1 = filter.ComputeHash(word1, spacing);
+            int hashValue2 = filter.ComputeHash(word2, spacing);
+
+            Assert.Equal(hashValue1, hashValue2);
+        }
+
+        [Fact]
+        public void NumberOfTrueBits_EmptyBloomFilter_ShouldBeZero()
+        {
+            int numberOfElements = 1000;
+            double falsePositiveProb = 0.01;
+
+            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+
+            Assert.Equal(0, filter.NumberOfTrueBits);
+        }
+
+        [Fact]
+        public void AddItem_StringOnEmptyBloomFilter_NumberOfTrueBitsGreaterThanZero()
+        {
+            int numberOfElements = 1000;
+            double falsePositiveProb = 0.01;
+            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+            string word = "foo";
+
+            filter.AddItem(word);
+
+            Assert.NotEqual(0, filter.NumberOfTrueBits);
+        }
+
+        [Fact]
+        public void CheckItem_AfterInsertingSameString_ReturnTrue()
+        {
+            int numberOfElements = 1000;
+            double falsePositiveProb = 0.01;
+            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+            string word = "foo";
+
+            filter.AddItem(word);
+            bool found = filter.CheckItem(word);
+
+            Assert.True(found);
+        }
     }
 }
