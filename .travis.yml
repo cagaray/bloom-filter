@@ -1,9 +1,8 @@
 language: csharp
-mono: none
-dotnet: 2.1.302
+solution: BloomFilter/BloomFilter.sln
+install:
+  - nuget restore BloomFilter/BloomFilter.sln
+  - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
 script:
-  - dotnet restore
-  - dotnet build ./BloomFilter/
-  - dotnet build ./BloomFilter/BloomFilter/
-  - dotnet test ./BloomFilter/BloomFilter.UnitTests/
-  
+  - xbuild /p:Configuration=Debug BloomFilter/BloomFilter.sln
+  - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./BloomFilter/BloomFilter.UnitTests/bin/Debug/BloomFilter.UnitTests.dll
