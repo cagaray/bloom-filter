@@ -1,10 +1,9 @@
 language: csharp
+dist: trusty
+mono: none
+dotnet: 1.0.1
+install:
+- dotnet restore
 script:
-  - xbuild /p:Configuration=Debug BloomFilter/BloomFilter.sln
-before_install:
-  - sudo apt-get install nunit-console
-before_script:
-  - nuget restore BloomFilter/BloomFilter.sln
-after_script:
-  - nunit-console BloomFilter/BloomFilter.UnitTests/bin/Debug/BloomFilter.UnitTests.dll
-  
+- dotnet build
+- dotnet test BloomFilter/BloomFilter.UnitTests/BloomFilter.UnitTests.csproj
