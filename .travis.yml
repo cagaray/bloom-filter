@@ -1,9 +1,9 @@
 language: csharp
-dist: trusty
 mono: none
 dotnet: 2.1.302
-install:
-- dotnet restore
 script:
-- dotnet build
-- dotnet test BloomFilter/BloomFilter.UnitTests/BloomFilter.UnitTests.csproj
+  - dotnet restore
+  - dotnet build ./BloomFilter/
+  - dotnet build ./BloomFilter/BloomFilter/
+  - dotnet test ./BloomFilter/BloomFilter.UnitTests/
+  
