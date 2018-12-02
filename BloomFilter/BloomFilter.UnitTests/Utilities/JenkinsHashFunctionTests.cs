@@ -16,5 +16,18 @@ namespace BloomFilter.UnitTests.Utilities
 
             Assert.Equal(1127866192, hash);
         }
+
+        [Fact]
+        public void ComputeHash_HashOffooTwice_ReturnSameResult()
+        {
+            string foo1 = "foo";
+            string foo2 = "foo";
+            JenkinsHashFunction<string> hashFunction = new JenkinsHashFunction<string>();
+
+            int hash1 = hashFunction.ComputeHash(foo1);
+            int hash2 = hashFunction.ComputeHash(foo2);
+
+            Assert.Equal(hash1, hash2);
+        }
     }
 }
