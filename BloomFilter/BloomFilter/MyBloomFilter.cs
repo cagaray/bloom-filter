@@ -4,7 +4,7 @@ using BloomFilter.Utilities;
 
 namespace BloomFilter
 {
-    public class MyBloomFilter<T>
+    public class MyBloomFilter<T> : IBloomFilter<T>
     {
         public readonly int NumberOfElements;
         public readonly double FalsePositiveProb;
