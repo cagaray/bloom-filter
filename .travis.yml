@@ -8,4 +8,4 @@ script:
   - cd BloomFilter
   - dotnet restore
   - dotnet build -c Release
-  - dotnet test ./BloomFilter.Tests/
+  - dotnet test ./BloomFilter.UnitTests/
