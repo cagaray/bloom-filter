@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using BloomFilter.Utilities;
 
 namespace BloomFilter
 {
-    public class MyBloomFilter<T> : IBloomFilter<T>
+    public class MyBloomFilter<T> : IDict<T>
     {
         public readonly int NumberOfElements;
         public readonly double FalsePositiveProb;
@@ -13,14 +14,6 @@ namespace BloomFilter
         public readonly IHashFunc<T> FirstHashFunction;
         public readonly IHashFunc<T> SecondHashFunction;
         private BitArray _bitArray;
-
-        public int NumberOfTrueBits
-        {
-            get
-            {
-                return GetNumberOfTrueBits();
-            }
-        }
 
         public MyBloomFilter(int numberOfElements, double falsePositiveProb) : this(numberOfElements, falsePositiveProb, null, null)
         {
@@ -67,16 +60,6 @@ namespace BloomFilter
             return Math.Abs((FirstHashFunction.ComputeHash(element) + spacing * SecondHashFunction.ComputeHash(element)) % SizeOfBitArray);
         }
 
-        private int GetNumberOfTrueBits()
-        {
-            int numberOfTrueBits = 0;
-            for (int i = 0; i < _bitArray.Count; i++)
-            {
-                if (_bitArray[i] == true) numberOfTrueBits++;
-            }
-            return numberOfTrueBits;
-        }
-
         public void AddItem(T item)
         {
             for (int i = 0; i < NumberOfHashFunctions; i++)
@@ -91,6 +74,11 @@ namespace BloomFilter
                     return false;
             }
             return true;
+        }
+
+        public bool IsEmpty()
+        {
+            return (!_bitArray.Cast<bool>().Contains(true));
         }
     }
 }

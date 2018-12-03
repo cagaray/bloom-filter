@@ -5,13 +5,16 @@ namespace BloomFilter.Utilities
 {
     public class TxtReaderFromFileSystem : IReaderFromFileSystem
     {
-        public TxtReaderFromFileSystem()
+        private readonly string _path;
+
+        public TxtReaderFromFileSystem(string path)
         {
+            this._path = path;
         }
 
-        public async Task<string> GetContentsFromFileAsync(string path)
+        public async Task<string> GetContentsFromFileAsync()
         {
-            using (var reader = File.OpenText(path))
+            using (var reader = File.OpenText(_path))
                 return await reader.ReadToEndAsync();
         }
     }

@@ -4,6 +4,6 @@ namespace BloomFilter.Utilities
 {
     public interface IReaderFromFileSystem
     {
-        Task<string> GetContentsFromFileAsync(string path);
+        Task<string> GetContentsFromFileAsync();
     }
 }
