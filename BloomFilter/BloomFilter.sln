@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloomFilter", "BloomFilter\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloomFilter.UnitTests", "BloomFilter.UnitTests\BloomFilter.UnitTests.csproj", "{5EDE830B-E9E1-4066-900C-6206EE0CFAA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpellCheckerApp", "SpellCheckerApp\SpellCheckerApp.csproj", "{5C080D39-B618-4394-A3DE-42C836FBDD4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,5 +21,9 @@ Global
 		{5EDE830B-E9E1-4066-900C-6206EE0CFAA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EDE830B-E9E1-4066-900C-6206EE0CFAA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EDE830B-E9E1-4066-900C-6206EE0CFAA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C080D39-B618-4394-A3DE-42C836FBDD4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C080D39-B618-4394-A3DE-42C836FBDD4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C080D39-B618-4394-A3DE-42C836FBDD4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C080D39-B618-4394-A3DE-42C836FBDD4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
