@@ -351,18 +351,18 @@ namespace BloomFilter.UnitTests
         }
 
         [Fact]
-        public void NumberOfTrueBits_EmptyBloomFilter_ShouldBeZero()
+        public void IsEmpty_EmptyBloomFilter_ReturnTrue()
         {
             int numberOfElements = 1000;
             double falsePositiveProb = 0.01;
 
             MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
 
-            Assert.Equal(0, filter.NumberOfTrueBits);
+            Assert.True(filter.IsEmpty());
         }
 
         [Fact]
-        public void AddItem_StringOnEmptyBloomFilter_NumberOfTrueBitsGreaterThanZero()
+        public void IsEmpty_NonEmptyBloomFilter_ReturnFalse()
         {
             int numberOfElements = 1000;
             double falsePositiveProb = 0.01;
@@ -371,7 +371,7 @@ namespace BloomFilter.UnitTests
 
             filter.AddItem(word);
 
-            Assert.NotEqual(0, filter.NumberOfTrueBits);
+            Assert.False(filter.IsEmpty());
         }
 
         [Fact]

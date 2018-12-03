@@ -1,8 +1,9 @@
 ﻿namespace BloomFilter
 {
-    public interface IBloomFilter<T>
+    public interface IDict<T>
     {
         void AddItem(T item);
         bool CheckItem(T item);
+        bool IsEmpty();
     }
 }
