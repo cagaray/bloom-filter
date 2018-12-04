@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 
 namespace BloomFilter.Utilities
 {
-    public class TxtReaderFromFileSystem : IReaderFromFileSystem
+    public class ReaderTxtFromFileSystem : IReader
     {
         private readonly string _path;
 
-        public TxtReaderFromFileSystem(string path)
+        public ReaderTxtFromFileSystem(string path)
         {
             this._path = path;
         }

@@ -10,9 +10,9 @@ namespace BloomFilter.UnitTests
         [Fact]
         public async Task LoadDataFromPath_CorrectPathAndNonEmptyFile_NonEmptyDictionary()
         {
-            var reader = new Mock<IReaderFromFileSystem>();
+            var reader = new Mock<IReader>();
             reader.Setup(r => r.GetContentsFromFileAsync()).Returns(Task.FromResult<string>("foo\nbar\ntest"));
-            var dictionary = new Mock<IDict<string>>();
+            var dictionary = new Mock<IDictionary<string>>();
             dictionary.Setup(d => d.IsEmpty()).Returns(false);
             dictionary.Setup(d => d.AddItem(It.IsAny<string>()));
             SpellChecker checker = new SpellChecker(reader.Object, dictionary.Object);
@@ -27,9 +27,9 @@ namespace BloomFilter.UnitTests
         [Fact]
         public async Task LoadDataFromPath_CorrectPathAndEmptyFile_EmptyDictionary()
         {
-            var reader = new Mock<IReaderFromFileSystem>();
+            var reader = new Mock<IReader>();
             reader.Setup(r => r.GetContentsFromFileAsync()).Returns(Task.FromResult<string>(""));
-            var dictionary = new Mock<IDict<string>>();
+            var dictionary = new Mock<IDictionary<string>>();
             dictionary.Setup(d => d.IsEmpty()).Returns(true);
             dictionary.Setup(d => d.AddItem(It.IsAny<string>()));
             SpellChecker checker = new SpellChecker(reader.Object, dictionary.Object);
@@ -44,9 +44,9 @@ namespace BloomFilter.UnitTests
         [Fact]
         public async Task CheckWordInDictionary_WordExists_ReturnTrue()
         {
-            var reader = new Mock<IReaderFromFileSystem>();
+            var reader = new Mock<IReader>();
             reader.Setup(r => r.GetContentsFromFileAsync()).Returns(Task.FromResult<string>("foo\nbar\ntest"));
-            var dictionary = new Mock<IDict<string>>();
+            var dictionary = new Mock<IDictionary<string>>();
             dictionary.Setup(d => d.IsEmpty()).Returns(false);
             dictionary.Setup(d => d.AddItem(It.IsAny<string>()));
             dictionary.Setup(d => d.CheckItem(It.IsAny<string>())).Returns(true);
@@ -61,9 +61,9 @@ namespace BloomFilter.UnitTests
         [Fact]
         public async Task CheckWordInDictionary_WordNotExists_ReturnFalse()
         {
-            var reader = new Mock<IReaderFromFileSystem>();
+            var reader = new Mock<IReader>();
             reader.Setup(r => r.GetContentsFromFileAsync()).Returns(Task.FromResult<string>("foo\nbar\ntest"));
-            var dictionary = new Mock<IDict<string>>();
+            var dictionary = new Mock<IDictionary<string>>();
             dictionary.Setup(d => d.IsEmpty()).Returns(false);
             dictionary.Setup(d => d.AddItem(It.IsAny<string>()));
             dictionary.Setup(d => d.CheckItem(It.IsAny<string>())).Returns(false);

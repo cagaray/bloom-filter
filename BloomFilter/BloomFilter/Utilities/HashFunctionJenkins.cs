@@ -1,16 +1,15 @@
-﻿using System;
-using System.Data.HashFunction;
+﻿using System.Data.HashFunction;
 using System.Data.HashFunction.Jenkins;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace BloomFilter.Utilities
 {
-    public class JenkinsHashFunction<T> : IHashFunc<T>
+    public class HashFunctionJenkins<T> : IHashFunction<T>
     {
         private IJenkinsOneAtATime _jenkinsOneAtATime;
 
-        public JenkinsHashFunction()
+        public HashFunctionJenkins()
         {
             this._jenkinsOneAtATime = JenkinsOneAtATimeFactory.Instance.Create();
         }

@@ -9,8 +9,10 @@ namespace SpellCheckerApp
     {
         private static bool _loaded = false;
         private static SpellChecker _checker;
-        private static IReaderFromFileSystem _reader;
-        private static IDict<string> _dictionary;
+        private static IReader _reader;
+        private static IHashFunction<string> _firstHashFunction;
+        private static IHashFunction<string> _secondHashFunction;
+        private static IDictionary<string> _dictionary;
 
         static async Task<int> Main(string[] args)
         {
@@ -69,10 +71,12 @@ namespace SpellCheckerApp
                 Console.WriteLine("False positive probablity should be a number between zero and one (not inclusive): " + command.Param3);
                 return;
             }
-            _reader = new TxtReaderFromFileSystem(filePath);
+            _reader = new ReaderTxtFromFileSystem(filePath);
             try
             {
-                _dictionary = new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+                _firstHashFunction = new HashFunctionDotNet<string>();
+                _secondHashFunction = new HashFunctionJenkins<string>();
+                _dictionary = new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb, _firstHashFunction, _secondHashFunction);
             }
             catch(Exception)
             {
