@@ -88,8 +88,9 @@ namespace SpellCheckerApp
                 _checker = new SpellChecker(_reader, _dictionary);
                 await _checker.LoadDataFromPath();
                 _loaded = true;
+                Console.WriteLine("Spell checker successfully loaded.\n");
             }
-            catch(Exception)
+            catch (Exception)
             {
                 Console.WriteLine(string.Format("Could not load spell checker from arguments {0} {1} {2}\n", command.Params[0], command.Params[1], command.Params[2]));
                 return;
