@@ -5,32 +5,32 @@ using BloomFilter.Utilities;
 
 namespace BloomFilter
 {
-    public class MyBloomFilter<T> : IDict<T>
+    public class DictionaryBloomFilter<T> : IDictionary<T>
     {
         public readonly int NumberOfElements;
         public readonly double FalsePositiveProb;
         public readonly int SizeOfBitArray;
         public readonly int NumberOfHashFunctions;
-        public readonly IHashFunc<T> FirstHashFunction;
-        public readonly IHashFunc<T> SecondHashFunction;
+        public readonly IHashFunction<T> FirstHashFunction;
+        public readonly IHashFunction<T> SecondHashFunction;
         private BitArray _bitArray;
 
-        public MyBloomFilter(int numberOfElements, double falsePositiveProb) : this(numberOfElements, falsePositiveProb, null, null)
+        public DictionaryBloomFilter(int numberOfElements, double falsePositiveProb) : this(numberOfElements, falsePositiveProb, null, null)
         {
         }
 
-        public MyBloomFilter(int numberOfElements, double falsePositiveProb, IHashFunc<T> secondHashFunction) : this(numberOfElements, falsePositiveProb, null, secondHashFunction)
+        public DictionaryBloomFilter(int numberOfElements, double falsePositiveProb, IHashFunction<T> secondHashFunction) : this(numberOfElements, falsePositiveProb, null, secondHashFunction)
         {
         }
 
-        public MyBloomFilter(int numberOfElements, double falsePositiveProb, IHashFunc<T> firstHashFunction, IHashFunc<T> secondHashFunction)
+        public DictionaryBloomFilter(int numberOfElements, double falsePositiveProb, IHashFunction<T> firstHashFunction, IHashFunction<T> secondHashFunction)
         {
             this.NumberOfElements = numberOfElements;
             this.FalsePositiveProb = falsePositiveProb;
             this.SizeOfBitArray = ComputeSizeOfBitArray(this.NumberOfElements, this.FalsePositiveProb);
             this.NumberOfHashFunctions = ComputeNumberOfHashFunctions(this.NumberOfElements, this.SizeOfBitArray);
-            this.FirstHashFunction = (firstHashFunction != null) ? firstHashFunction : new DotNetHashFunction<T>();
-            this.SecondHashFunction = (secondHashFunction != null) ? secondHashFunction : new JenkinsHashFunction<T>();
+            this.FirstHashFunction = (firstHashFunction != null) ? firstHashFunction : new HashFunctionDotNet<T>();
+            this.SecondHashFunction = (secondHashFunction != null) ? secondHashFunction : new HashFunctionJenkins<T>();
             this._bitArray = new BitArray(this.SizeOfBitArray);
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace BloomFilter
 {
-    public interface IDict<T>
+    public interface IDictionary<T>
     {
         void AddItem(T item);
         bool CheckItem(T item);

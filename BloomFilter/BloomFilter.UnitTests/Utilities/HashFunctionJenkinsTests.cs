@@ -1,16 +1,15 @@
-﻿using System;
-using BloomFilter.Utilities;
+﻿using BloomFilter.Utilities;
 using Xunit;
 
 namespace BloomFilter.UnitTests.Utilities
 {
-    public class JenkinsHashFunctionTests
+    public class HashFunctionJenkinsTests
     {
         [Fact]
         public void ComputeHash_HashOffoo_ReturnCorrectResult()
         {
             string foo = "foo";
-            JenkinsHashFunction<string> hashFunction = new JenkinsHashFunction<string>();
+            HashFunctionJenkins<string> hashFunction = new HashFunctionJenkins<string>();
 
             int hash = hashFunction.ComputeHash(foo);
 
@@ -22,7 +21,7 @@ namespace BloomFilter.UnitTests.Utilities
         {
             string foo1 = "foo";
             string foo2 = "foo";
-            JenkinsHashFunction<string> hashFunction = new JenkinsHashFunction<string>();
+            HashFunctionJenkins<string> hashFunction = new HashFunctionJenkins<string>();
 
             int hash1 = hashFunction.ComputeHash(foo1);
             int hash2 = hashFunction.ComputeHash(foo2);

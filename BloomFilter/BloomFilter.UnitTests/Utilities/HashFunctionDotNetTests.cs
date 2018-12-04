@@ -1,16 +1,15 @@
-﻿using System;
-using BloomFilter.Utilities;
+﻿using BloomFilter.Utilities;
 using Xunit;
 
 namespace BloomFilter.UnitTests.Utilities
 {
-    public class DotNetHashFucntionTests
+    public class HashFunctionDotNetTests
     {
         [Fact]
         public void ComputeHash_HashOffoo_ReturnInt()
         {
             string foo = "foo";
-            DotNetHashFunction<string> hashFunction = new DotNetHashFunction<string>();
+            HashFunctionDotNet<string> hashFunction = new HashFunctionDotNet<string>();
 
             var hash = hashFunction.ComputeHash(foo);
 
@@ -22,7 +21,7 @@ namespace BloomFilter.UnitTests.Utilities
         {
             string foo1 = "foo";
             string foo2 = "foo";
-            DotNetHashFunction<string> hashFunction = new DotNetHashFunction<string>();
+            HashFunctionDotNet<string> hashFunction = new HashFunctionDotNet<string>();
 
             var hash1 = hashFunction.ComputeHash(foo1);
             var hash2 = hashFunction.ComputeHash(foo2);

@@ -2,7 +2,7 @@
 
 namespace BloomFilter.Utilities
 {
-    public interface IReaderFromFileSystem
+    public interface IReader
     {
         Task<string> GetContentsFromFileAsync();
     }

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using BloomFilter.Utilities;
 
 namespace BloomFilter
 {
-    public class SpellChecker
+    public class SpellChecker : ISpellChecker
     {
-        private IReaderFromFileSystem _reader;
-        private IDict<string> _dictionary;
+        private IReader _reader;
+        private IDictionary<string> _dictionary;
 
-        public SpellChecker(IReaderFromFileSystem reader, IDict<string> dictionary)
+        public SpellChecker(IReader reader, IDictionary<string> dictionary)
         {
             this._reader = reader;
             this._dictionary = dictionary;

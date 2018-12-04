@@ -4,7 +4,7 @@ using Xunit;
 
 namespace BloomFilter.UnitTests
 {
-    public class MyBloomFilterTests
+    public class DictionaryBloomFilterTests
     {
         [Fact]
         public void ComputeSizeOfBitArray_CorrectParameters_ReturnCorrectResult()
@@ -12,7 +12,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             double falsePositiveProb = 0.01;
 
-            int sizeOfBitArray = MyBloomFilter<string>.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
+            int sizeOfBitArray = DictionaryBloomFilter<string>.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
 
             Assert.Equal(9586, sizeOfBitArray);
         }
@@ -23,7 +23,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 0;
             double falsePositiveProb = 0.1;
 
-            int sizeOfBitArray = MyBloomFilter<string>.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
+            int sizeOfBitArray = DictionaryBloomFilter<string>.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
 
             Assert.Equal(0, sizeOfBitArray);
         }
@@ -34,7 +34,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = -1;
             double falsePositiveProb = 0.1;
 
-            Action act = () => MyBloomFilter<string>.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
+            Action act = () => DictionaryBloomFilter<string>.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -45,7 +45,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             double falsePositiveProb = 0.0;
 
-            Action act = () => MyBloomFilter<string>.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
+            Action act = () => DictionaryBloomFilter<string>.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -56,7 +56,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             double falsePositiveProb = -0.1;
 
-            Action act = () => MyBloomFilter<string>.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
+            Action act = () => DictionaryBloomFilter<string>.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -67,7 +67,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             double falsePositiveProb = 1.1;
 
-            Action act = () => MyBloomFilter<string>.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
+            Action act = () => DictionaryBloomFilter<string>.ComputeSizeOfBitArray(numberOfElements, falsePositiveProb);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -78,7 +78,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             int sizeOfBitArray = 9586;
 
-            int numberOfHashFunctions = MyBloomFilter<string>.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
+            int numberOfHashFunctions = DictionaryBloomFilter<string>.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
 
             Assert.Equal(7, numberOfHashFunctions);
         }
@@ -89,7 +89,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             int sizeOfBitArray = 0;
 
-            int numberOfHashFunctions = MyBloomFilter<string>.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
+            int numberOfHashFunctions = DictionaryBloomFilter<string>.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
 
             Assert.Equal(0, numberOfHashFunctions);
         }
@@ -100,7 +100,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             int sizeOfBitArray = -1;
 
-            Action act = () => MyBloomFilter<string>.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
+            Action act = () => DictionaryBloomFilter<string>.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -111,7 +111,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 0;
             int sizeOfBitArray = 9586;
 
-            Action act = () => MyBloomFilter<string>.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
+            Action act = () => DictionaryBloomFilter<string>.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -122,7 +122,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = -1;
             int sizeOfBitArray = 9586;
 
-            Action act = () => MyBloomFilter<string>.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
+            Action act = () => DictionaryBloomFilter<string>.ComputeNumberOfHashFunctions(numberOfElements, sizeOfBitArray);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -134,7 +134,7 @@ namespace BloomFilter.UnitTests
             int sizeOfBitArray = 9586;
             int numberOfHashFunctions = 7;
 
-            double falsePositiveProb = MyBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+            double falsePositiveProb = DictionaryBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
 
             Assert.Equal(0.01, falsePositiveProb, 2);
         }
@@ -146,7 +146,7 @@ namespace BloomFilter.UnitTests
             int sizeOfBitArray = 9586;
             int numberOfHashFunctions = 0;
 
-            Action act = () => MyBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+            Action act = () => DictionaryBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -158,7 +158,7 @@ namespace BloomFilter.UnitTests
             int sizeOfBitArray = 9586;
             int numberOfHashFunctions = -1;
 
-            Action act = () => MyBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+            Action act = () => DictionaryBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -170,7 +170,7 @@ namespace BloomFilter.UnitTests
             int sizeOfBitArray = 9586;
             int numberOfHashFunctions = 7;
 
-            Action act = () => MyBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+            Action act = () => DictionaryBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -182,7 +182,7 @@ namespace BloomFilter.UnitTests
             int sizeOfBitArray = 9586;
             int numberOfHashFunctions = 7;
 
-            Action act = () => MyBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+            Action act = () => DictionaryBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -194,7 +194,7 @@ namespace BloomFilter.UnitTests
             int sizeOfBitArray = 0;
             int numberOfHashFunctions = 7;
 
-            Action act = () => MyBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+            Action act = () => DictionaryBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -206,7 +206,7 @@ namespace BloomFilter.UnitTests
             int sizeOfBitArray = -1;
             int numberOfHashFunctions = 7;
 
-            Action act = () => MyBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
+            Action act = () => DictionaryBloomFilter<string>.ComputeFalsePositiveProb(numberOfElements, sizeOfBitArray, numberOfHashFunctions);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -217,15 +217,15 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             double falsePositiveProb = 0.01;
 
-            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+            DictionaryBloomFilter<string> filter = new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb);
 
-            Assert.IsType<MyBloomFilter<string>>(filter);
+            Assert.IsType<DictionaryBloomFilter<string>>(filter);
             Assert.Equal(1000, filter.NumberOfElements);
             Assert.Equal(0.01, filter.FalsePositiveProb, 2);
             Assert.Equal(9586, filter.SizeOfBitArray);
             Assert.Equal(7, filter.NumberOfHashFunctions);
-            Assert.IsType<DotNetHashFunction<string>>(filter.FirstHashFunction);
-            Assert.IsType<JenkinsHashFunction<string>>(filter.SecondHashFunction);
+            Assert.IsType<HashFunctionDotNet<string>>(filter.FirstHashFunction);
+            Assert.IsType<HashFunctionJenkins<string>>(filter.SecondHashFunction);
         }
 
         [Fact]
@@ -234,7 +234,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 0;
             double falsePositiveProb = 0.01;
 
-            Action act = () => new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+            Action act = () => new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -245,7 +245,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = -1;
             double falsePositiveProb = 0.01;
 
-            Action act = () => new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+            Action act = () => new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -256,7 +256,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             double falsePositiveProb = 0;
 
-            Action act = () => new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+            Action act = () => new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -267,7 +267,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             double falsePositiveProb = -0.01;
 
-            Action act = () => new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+            Action act = () => new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -278,7 +278,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             double falsePositiveProb = 1.01;
 
-            Action act = () => new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+            Action act = () => new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb);
 
             Assert.Throws<ArgumentOutOfRangeException>(act);
         }
@@ -288,18 +288,18 @@ namespace BloomFilter.UnitTests
         {
             int numberOfElements = 1000;
             double falsePositiveProb = 0.01;
-            IHashFunc<string> firstHashFunction = new DotNetHashFunction<string>();
-            IHashFunc<string> secondHashFunction = new JenkinsHashFunction<string>();
+            IHashFunction<string> firstHashFunction = new HashFunctionDotNet<string>();
+            IHashFunction<string> secondHashFunction = new HashFunctionJenkins<string>();
 
-            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElements, falsePositiveProb, firstHashFunction, secondHashFunction);
+            DictionaryBloomFilter<string> filter = new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb, firstHashFunction, secondHashFunction);
 
-            Assert.IsType<MyBloomFilter<string>>(filter);
+            Assert.IsType<DictionaryBloomFilter<string>>(filter);
             Assert.Equal(1000, filter.NumberOfElements);
             Assert.Equal(0.01, filter.FalsePositiveProb, 2);
             Assert.Equal(9586, filter.SizeOfBitArray);
             Assert.Equal(7, filter.NumberOfHashFunctions);
-            Assert.IsType<DotNetHashFunction<string>>(filter.FirstHashFunction);
-            Assert.IsType<JenkinsHashFunction<string>>(filter.SecondHashFunction);
+            Assert.IsType<HashFunctionDotNet<string>>(filter.FirstHashFunction);
+            Assert.IsType<HashFunctionJenkins<string>>(filter.SecondHashFunction);
         }
 
         [Fact]
@@ -307,17 +307,17 @@ namespace BloomFilter.UnitTests
         {
             int numberOfElements = 1000;
             double falsePositiveProb = 0.01;
-            IHashFunc<string> secondHashFunction = new JenkinsHashFunction<string>();
+            IHashFunction<string> secondHashFunction = new HashFunctionJenkins<string>();
 
-            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElements, falsePositiveProb, secondHashFunction);
+            DictionaryBloomFilter<string> filter = new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb, secondHashFunction);
 
-            Assert.IsType<MyBloomFilter<string>>(filter);
+            Assert.IsType<DictionaryBloomFilter<string>>(filter);
             Assert.Equal(1000, filter.NumberOfElements);
             Assert.Equal(0.01, filter.FalsePositiveProb, 2);
             Assert.Equal(9586, filter.SizeOfBitArray);
             Assert.Equal(7, filter.NumberOfHashFunctions);
-            Assert.IsType<DotNetHashFunction<string>>(filter.FirstHashFunction);
-            Assert.IsType<JenkinsHashFunction<string>>(filter.SecondHashFunction);
+            Assert.IsType<HashFunctionDotNet<string>>(filter.FirstHashFunction);
+            Assert.IsType<HashFunctionJenkins<string>>(filter.SecondHashFunction);
         }
 
         [Fact]
@@ -327,7 +327,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             double falsePositiveProb = 0.01;
             int spacing = 0;
-            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+            DictionaryBloomFilter<string> filter = new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb);
 
             int hashValue = filter.ComputeHash(word, spacing);
 
@@ -342,7 +342,7 @@ namespace BloomFilter.UnitTests
             int numberOfElememts = 1000;
             double falsePositivieProb = 0.01;
             int spacing = 1;
-            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElememts, falsePositivieProb);
+            DictionaryBloomFilter<string> filter = new DictionaryBloomFilter<string>(numberOfElememts, falsePositivieProb);
 
             int hashValue1 = filter.ComputeHash(word1, spacing);
             int hashValue2 = filter.ComputeHash(word2, spacing);
@@ -356,7 +356,7 @@ namespace BloomFilter.UnitTests
             int numberOfElements = 1000;
             double falsePositiveProb = 0.01;
 
-            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+            DictionaryBloomFilter<string> filter = new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb);
 
             Assert.True(filter.IsEmpty());
         }
@@ -366,7 +366,7 @@ namespace BloomFilter.UnitTests
         {
             int numberOfElements = 1000;
             double falsePositiveProb = 0.01;
-            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+            DictionaryBloomFilter<string> filter = new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb);
             string word = "foo";
 
             filter.AddItem(word);
@@ -379,7 +379,7 @@ namespace BloomFilter.UnitTests
         {
             int numberOfElements = 1000;
             double falsePositiveProb = 0.01;
-            MyBloomFilter<string> filter = new MyBloomFilter<string>(numberOfElements, falsePositiveProb);
+            DictionaryBloomFilter<string> filter = new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb);
             string word = "foo";
 
             filter.AddItem(word);
