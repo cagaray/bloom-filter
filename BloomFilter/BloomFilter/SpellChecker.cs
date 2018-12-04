@@ -17,11 +17,12 @@ namespace BloomFilter
         public async Task LoadDataFromPath()
         {
             string fileContents = await _reader.GetContentsFromFileAsync();
-            if (fileContents != null && fileContents != "")
+            if (!string.IsNullOrEmpty(fileContents))
             {
                 foreach (string word in fileContents.Split("\n"))
                 {
-                    await Task.Run(() => _dictionary.AddItem(word));
+                    if (word != "")
+                        await Task.Run(() => _dictionary.AddItem(word));
                 }
             }
         }

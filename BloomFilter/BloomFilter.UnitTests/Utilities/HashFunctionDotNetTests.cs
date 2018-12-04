@@ -1,4 +1,5 @@
-﻿using BloomFilter.Utilities;
+﻿using System;
+using BloomFilter.Utilities;
 using Xunit;
 
 namespace BloomFilter.UnitTests.Utilities
@@ -27,6 +28,28 @@ namespace BloomFilter.UnitTests.Utilities
             var hash2 = hashFunction.ComputeHash(foo2);
 
             Assert.Equal(hash1, hash2);
+        }
+
+        [Fact]
+        public void ComputeHash_HashOfEmpty_ReturnInt()
+        {
+            string foo = "";
+            HashFunctionDotNet<string> hashFunction = new HashFunctionDotNet<string>();
+
+            var hash = hashFunction.ComputeHash(foo);
+
+            Assert.IsType<int>(hash);
+        }
+
+        [Fact]
+        public void ComputeHash_HashOfNull_ThrowException()
+        {
+            string foo = null;
+            HashFunctionDotNet<string> hashFunction = new HashFunctionDotNet<string>();
+
+            Action act = () => hashFunction.ComputeHash(foo);
+
+            Assert.Throws<NullReferenceException>(act);
         }
     }
 }
