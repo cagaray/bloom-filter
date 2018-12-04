@@ -14,7 +14,7 @@ For one of the hash functions I used the [Object.GetHashCode](https://docs.micro
 
 For the other hash function I used the Jenkins one_at_a_time hash function from the [System.Data.HashFunction.Jenkins](https://www.nuget.org/packages/System.Data.HashFunction.Jenkins/) NuGet package.
 
-## Instalation
+## Installation
 Requires .Net Core SDK 2.1+ [Download](https://dotnet.microsoft.com/download)
 
 To check version: `dotnet --info`
@@ -31,17 +31,17 @@ When first run the console application, you should see the following screen:
 
 ![Initial screen](https://i.imgur.com/dn9ozgr.png)
 
-Posible commands:
+Possible commands:
 
--l: Loads a Bloom Filter based dictionary with the words in file.
+-l: Loads a Bloom Filter based dictionary with the words in a file.
 
 Arguments:
 
-* \<file path>: Full path of the txt file containing the words to load on dictionary. Each line should contain one word.
-* \<number of elements>: Integer numbers representing the number of elements to hold on the dictionary (can be an aproximation or an arbitrarily large number).
+* \<file path>: Full path of the txt file containing the words to load on the dictionary. Each line should contain one word.
+* \<number of elements>: Integer numbers representing the number of elements to hold on the dictionary (can be an approximation or an arbitrarily large number).
 * \<false positive prob>: Probability of getting a false positive when looking for a word. Should be a decimal number greater than zero and less than one (not inclusive).
 
--c: Check for a word in an already loaded dictionary. If dictionary hasn't been loaded yet, it will ask to load it first.
+-c: Check for a word in an already loaded dictionary. If the dictionary hasn't been loaded yet, it will ask to load it first.
 
 Arguments:
 
@@ -56,7 +56,7 @@ Loading dictionary:
 
 ![Loading dictionary](https://i.imgur.com/I6KnB0D.png)
 
-Checking if word in dictionary:
+Checking if a word is in the dictionary:
 
 ![Checking words](https://i.imgur.com/3V6h4R8.png)
 
