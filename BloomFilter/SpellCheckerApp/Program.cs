@@ -10,6 +10,8 @@ namespace SpellCheckerApp
         private static bool _loaded = false;
         private static SpellChecker _checker;
         private static IReader _reader;
+        private static IHashFunction<string> _firstHashFunction;
+        private static IHashFunction<string> _secondHashFunction;
         private static IDictionary<string> _dictionary;
 
         static async Task<int> Main(string[] args)
@@ -72,7 +74,9 @@ namespace SpellCheckerApp
             _reader = new ReaderTxtFromFileSystem(filePath);
             try
             {
-                _dictionary = new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb);
+                _firstHashFunction = new HashFunctionDotNet<string>();
+                _secondHashFunction = new HashFunctionJenkins<string>();
+                _dictionary = new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb, _firstHashFunction, _secondHashFunction);
             }
             catch(Exception)
             {
