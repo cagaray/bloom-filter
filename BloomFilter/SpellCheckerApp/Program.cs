@@ -8,7 +8,7 @@ namespace SpellCheckerApp
     class Program
     {
         private static bool _loaded = false;
-        private static SpellChecker _checker;
+        private static ISpellChecker _checker;
         private static IReader _reader;
         private static IHashFunction<string> _firstHashFunction;
         private static IHashFunction<string> _secondHashFunction;
@@ -55,32 +55,32 @@ namespace SpellCheckerApp
         {
             if (_loaded)
             {
-                Console.WriteLine("Spell checker already loaded.");
+                Console.WriteLine("Spell checker already loaded.\n");
                 return;
             }
-            string filePath = command.Param;
+            string filePath = command.Params[0];
             int numberOfElements;
-            if (!int.TryParse(command.Param2, out numberOfElements) || numberOfElements <= 0)
+            if (!int.TryParse(command.Params[1], out numberOfElements) || numberOfElements <= 0)
             {
-                Console.WriteLine("Number of elements should be an intger number greater than zero: " + command.Param2);
+                Console.WriteLine("Number of elements should be an intger number greater than zero: " + command.Params[1] + "\n");
                 return;
             }
             double falsePositiveProb;
-            if (!double.TryParse(command.Param3, out falsePositiveProb) || falsePositiveProb <= 0 || falsePositiveProb >= 1)
+            if (!double.TryParse(command.Params[2], out falsePositiveProb) || falsePositiveProb <= 0 || falsePositiveProb >= 1)
             {
-                Console.WriteLine("False positive probablity should be a number between zero and one (not inclusive): " + command.Param3);
+                Console.WriteLine("False positive probablity should be a number between zero and one (not inclusive): " + command.Params[2] + "\n");
                 return;
             }
-            _reader = new ReaderTxtFromFileSystem(filePath);
             try
             {
+                _reader = new ReaderTxtFromFileSystem(filePath);
                 _firstHashFunction = new HashFunctionDotNet<string>();
                 _secondHashFunction = new HashFunctionJenkins<string>();
                 _dictionary = new DictionaryBloomFilter<string>(numberOfElements, falsePositiveProb, _firstHashFunction, _secondHashFunction);
             }
             catch(Exception)
             {
-                Console.WriteLine(string.Format("Couldn't load Bloom Filter dictionary with arguments: {0} {1}", numberOfElements, falsePositiveProb));
+                Console.WriteLine(string.Format("Couldn't load Bloom Filter dictionary with arguments: {0} {1}\n", numberOfElements, falsePositiveProb));
                 return;
             }
             try
@@ -91,7 +91,7 @@ namespace SpellCheckerApp
             }
             catch(Exception)
             {
-                Console.WriteLine(string.Format("Could not load spell checker from arguments {0} {1} {2}", command.Param, command.Param2, command.Param3));
+                Console.WriteLine(string.Format("Could not load spell checker from arguments {0} {1} {2}\n", command.Params[0], command.Params[1], command.Params[2]));
                 return;
             }
         }
@@ -100,14 +100,22 @@ namespace SpellCheckerApp
         {
             if (!_loaded)
             {
-                Console.WriteLine("Spell checker not loaded yet, use -l.");
+                Console.WriteLine("Spell checker not loaded yet, use -l./n");
                 return;
             }
-            string word = command.Param;
-            if(_checker.CheckWordInDictionary(word))
-                Console.WriteLine("Word is in dictionary: " + word);
-            else
-                Console.WriteLine("Word is not in dictionary: " + word);
+            try
+            {
+                string word = command.Params[0];
+                if (_checker.CheckWordInDictionary(word))
+                    Console.WriteLine("Word is in dictionary: " + word + "\n");
+                else
+                    Console.WriteLine("Word is not in dictionary: " + word + "\n");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Could not check word in dictionary: " + command.Params[0] + "\n");
+                return;
+            }
         }
     }
 }
